@@ -40,6 +40,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.openAviDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // textBox2
@@ -58,6 +59,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Load AVI";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -133,6 +135,7 @@
             this.button6.TabIndex = 13;
             this.button6.Text = "Stop";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -151,6 +154,11 @@
             this.button8.TabIndex = 15;
             this.button8.Text = "Extract";
             this.button8.UseVisualStyleBackColor = true;
+            // 
+            // openAviDialog
+            // 
+            this.openAviDialog.FileName = "defaultFileName";
+            this.openAviDialog.Title = "Load AVI";
             // 
             // Form1
             // 
@@ -191,6 +199,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.OpenFileDialog openAviDialog;
     }
 }
 

@@ -6,11 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.DirectX.AudioVideoPlayback;
 
 namespace susdulukripto
 {
     public partial class Form1 : Form
     {
+        private Microsoft.DirectX.AudioVideoPlayback.Video video;
+
         public Form1()
         {
             InitializeComponent();
@@ -43,12 +46,41 @@ namespace susdulukripto
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            if(video.State != StateFlags.Running)
+            {
+                video.Play();
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if(video.State == StateFlags.Running)
+            {
+                video.Pause();
+            }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(openAviDialog.ShowDialog() == DialogResult.OK)
+            {
+                int width = panel1.Width;
+                int height = panel1.Height;
+
+                video = new Microsoft.DirectX.AudioVideoPlayback.Video(openAviDialog.FileName);
+                video.Owner = panel1;
+                video.Stop();
+
+                panel1.Size = new Size(width,height);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if(video.State != StateFlags.Stopped)
+            {
+                video.Stop();
+            }
         }
     }
 }
