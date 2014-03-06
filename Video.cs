@@ -21,9 +21,8 @@ namespace susdulukripto
 
         public AVIReader reader { get; set; }
         public AVIWriter writer { get; set; }
-        public String message { get; set; }
         public String modeLSB { get; set; }
-        public List<Bitmap> bitmapL;
+        public List<Bitmap> bitmapL { get; set; }
 
         //Hide Constructor
         public Video(String input, String output, String key)
@@ -34,6 +33,8 @@ namespace susdulukripto
 
             this.reader = new AVIReader();
             reader.Open(input);
+
+            this.bitmapL = new List<Bitmap>();
         }
 
         public void hide(byte[] mbyte)

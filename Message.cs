@@ -11,10 +11,11 @@ namespace susdulukripto
         public String extension { get; set; }
         public byte[] content { get; set; }
 
-        public Message(String filename, String extension)
+        public Message(String filename, String extension, byte[] content)
         {
             this.filename = filename;
             this.extension = extension;
+            this.content = content;
         }
 
         public byte[] compose()

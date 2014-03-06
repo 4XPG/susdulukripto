@@ -14,9 +14,13 @@ namespace susdulukripto
     {
         private Microsoft.DirectX.AudioVideoPlayback.Video video;
 
+        public bool isHideAllowed;
+
         public Form1()
         {
             InitializeComponent();
+
+            isHideAllowed = false;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -31,7 +35,23 @@ namespace susdulukripto
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //get message size in bit
+            int mbit = System.IO.File.ReadAllBytes(openMessageDialog.FileName).Length * 8;
 
+            //get cover object size in byte
+            byte[] csize = System.IO.File.ReadAllBytes(openAviDialog.FileName);
+            int cbyte = csize.Length;
+
+            //compare
+            if(cbyte < mbit)
+            {
+                MessageBox.Show("Ukuran file terlalu besar","Warning",MessageBoxButtons.OK);
+            }
+            else
+            {
+                isHideAllowed = true;
+                MessageBox.Show("Proses penyembunyian pesan bisa dilakukan", "Info", MessageBoxButtons.OK);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -88,15 +108,24 @@ namespace susdulukripto
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //create message
-            Message m = new Message("","","");
-
-            //save file dialog
-            if(saveAviDialog.ShowDialog() == DialogResult.OK)
+            if(isHideAllowed)
             {
-                //susdulukriptio.video instatiation
-                Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
-                video.hide(m.compose());
+                //create message
+                String fname = openMessageDialog.SafeFileName;
+                String[] fstr = fname.Split('.');
+                Message m = new Message(fstr[0], fstr[1], System.IO.File.ReadAllBytes(openMessageDialog.FileName));
+
+                //save file dialog
+                if (saveAviDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //susdulukriptio.video instatiation
+                    Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
+                    video.hide(m.compose());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Lengkapi data & uji payload terlebih dahulu", "Warning", MessageBoxButtons.OK);
             }
         }
     }
