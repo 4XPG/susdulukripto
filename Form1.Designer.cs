@@ -42,6 +42,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.openAviDialog = new System.Windows.Forms.OpenFileDialog();
             this.openMessageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveAviDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // textBox2
@@ -216,6 +217,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.OpenFileDialog openAviDialog;
         private System.Windows.Forms.OpenFileDialog openMessageDialog;
+        private System.Windows.Forms.SaveFileDialog saveAviDialog;
     }
 }
 

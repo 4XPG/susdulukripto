@@ -88,8 +88,16 @@ namespace susdulukripto
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //susdulukriptio.video instatiation
-            Video video = new Video(openAviDialog.FileName,textBox2.Text);
+            //create message
+            Message m = new Message("","","");
+
+            //save file dialog
+            if(saveAviDialog.ShowDialog() == DialogResult.OK)
+            {
+                //susdulukriptio.video instatiation
+                Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
+                video.hide(m.compose());
+            }
         }
     }
 }

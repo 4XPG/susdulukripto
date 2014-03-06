@@ -11,21 +11,26 @@ namespace susdulukripto
 {
     class Video
     {
+        public static byte HEX_0 = 0x00;
+        public static byte HEX_1 = 0x01;
+        public static byte MED = 0xFE;
+
         private String key { get; set; }
         private String input { get; set; }
+        private String output { get; set; }
 
         public AVIReader reader { get; set; }
         public AVIWriter writer { get; set; }
-        public String output { get; set; }
         public String message { get; set; }
         public String modeLSB { get; set; }
         public List<Bitmap> bitmapL;
 
         //Hide Constructor
-        public Video(String input, String key)
+        public Video(String input, String output, String key)
         {
             this.input = input;
             this.key = key;
+            this.output = output;
 
             this.reader = new AVIReader();
             reader.Open(input);
@@ -66,9 +71,27 @@ namespace susdulukripto
 
                 //asumsi mode 1-LSB
                 byte byteb = c.B;
+                if(bitarray.Get(i))
+                {
+                    byteb = (byte)((byteb & MED) | (HEX_1));
+                }
+                else
+                {
+                    byteb = (byte)((byteb & MED) | (HEX_0));
+                }
+                frame.SetPixel(x, y, Color.FromArgb(c.R,c.G,byteb));
             }
 
             //write new .avi file
+            AVIWriter writer = new AVIWriter();
+            writer.Open(output,reader.Width,reader.Height);
+            foreach(Bitmap bitmap in bitmapL)
+            {
+                writer.AddFrame(bitmap);
+            }
+
+            reader.Close();
+            writer.Close();
         }
     }
 }
