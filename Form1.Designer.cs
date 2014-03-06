@@ -41,6 +41,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.openAviDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openMessageDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // textBox2
@@ -154,6 +155,7 @@
             this.button7.TabIndex = 14;
             this.button7.Text = "Hide";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -168,6 +170,10 @@
             // 
             this.openAviDialog.FileName = "defaultFileName";
             this.openAviDialog.Title = "Load AVI";
+            // 
+            // openMessageDialog
+            // 
+            this.openMessageDialog.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -209,6 +215,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.OpenFileDialog openAviDialog;
+        private System.Windows.Forms.OpenFileDialog openMessageDialog;
     }
 }
 

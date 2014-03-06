@@ -36,7 +36,10 @@ namespace susdulukripto
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (openMessageDialog.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine(openMessageDialog.FileName);
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -81,6 +84,12 @@ namespace susdulukripto
             {
                 video.Stop();
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //susdulukriptio.video instatiation
+            Video video = new Video(openAviDialog.FileName,textBox2.Text);
         }
     }
 }

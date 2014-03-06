@@ -11,14 +11,15 @@ namespace susdulukripto
 {
     class Video
     {
-        private AVIReader reader { get; set; }
-        private AVIWriter writer { get; set; }
-        private String input { get; set; }
-        private String output { get; set; }
-        private String message { get; set; }
         private String key { get; set; }
-        private String modeLSB { get; set; }
-        private List<Bitmap> bmpList;
+        private String input { get; set; }
+
+        public AVIReader reader { get; set; }
+        public AVIWriter writer { get; set; }
+        public String output { get; set; }
+        public String message { get; set; }
+        public String modeLSB { get; set; }
+        public List<Bitmap> bitmapL;
 
         //Hide Constructor
         public Video(String input, String key)
@@ -27,7 +28,47 @@ namespace susdulukripto
             this.key = key;
 
             this.reader = new AVIReader();
+            reader.Open(input);
+        }
 
+        public void hide(String message)
+        {
+            //Vigenere Encryption
+
+            //Message to BitArray
+            byte[] b = Encoding.ASCII.GetBytes(message);
+            BitArray bitarray = new BitArray(b);
+
+            //Convert key to seed
+            byte[] k_ = Encoding.ASCII.GetBytes(key);
+            Int32 seed = 0;
+            foreach(byte b_ in k_)
+            {
+                seed += b_;
+            }
+
+            //Get all frame from .avi
+            while(reader.Position - reader.Start < reader.Length)
+            {
+                bitmapL.Add(reader.GetNextFrame());
+            }
+
+            //Find frame and pixel position
+            Random rand = new Random(seed);
+            for(int i = bitarray.Length-1; i > -1; i--)
+            {
+                int frameIdx = rand.Next(reader.Length);
+                int x = rand.Next(reader.Width);
+                int y = rand.Next(reader.Height);
+
+                Bitmap frame = bitmapL.ElementAt(frameIdx);
+                Color c = frame.GetPixel(x,y);
+
+                //asumsi mode 1-LSB
+                byte byteb = c.B;
+            }
+
+            //write new .avi file
         }
     }
 }
