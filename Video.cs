@@ -36,13 +36,12 @@ namespace susdulukripto
             reader.Open(input);
         }
 
-        public void hide(String message)
+        public void hide(byte[] mbyte)
         {
             //Vigenere Encryption
 
             //Message to BitArray
-            byte[] b = Encoding.ASCII.GetBytes(message);
-            BitArray bitarray = new BitArray(b);
+            BitArray bitarray = new BitArray(mbyte);
 
             //Convert key to seed
             byte[] k_ = Encoding.ASCII.GetBytes(key);
