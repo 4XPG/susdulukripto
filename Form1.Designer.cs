@@ -170,6 +170,7 @@
             // openAviDialog
             // 
             this.openAviDialog.FileName = "defaultFileName";
+            this.openAviDialog.Filter = "AVI files|*.avi";
             this.openAviDialog.Title = "Load AVI";
             // 
             // openMessageDialog
