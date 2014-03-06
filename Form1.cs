@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.AudioVideoPlayback;
+using System.IO;
 
 namespace susdulukripto
 {
@@ -15,12 +16,14 @@ namespace susdulukripto
         private Microsoft.DirectX.AudioVideoPlayback.Video video;
 
         public bool isHideAllowed;
-
+        internal SaveFileDialog SaveFileDialog1;
+        
         public Form1()
         {
             InitializeComponent();
 
             isHideAllowed = false;
+            this.SaveFileDialog1 = new SaveFileDialog();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -89,10 +92,9 @@ namespace susdulukripto
             {
                 int width = panel1.Width;
                 int height = panel1.Height;
-
-                video = new Microsoft.DirectX.AudioVideoPlayback.Video(openAviDialog.FileName);
+                /*video = new Microsoft.DirectX.AudioVideoPlayback.Video(openAviDialog.FileName);
                 video.Owner = panel1;
-                video.Stop();
+                video.Stop();*/
 
                 panel1.Size = new Size(width,height);
             }
@@ -114,33 +116,46 @@ namespace susdulukripto
                 String fname = openMessageDialog.SafeFileName;
                 String[] fstr = fname.Split('.');
                 Message m = new Message(fstr[0], fstr[1], System.IO.File.ReadAllBytes(openMessageDialog.FileName));
+                if (VigenereMode.Items.Equals("Use Vigenere"))
+                {
+                    m.VigenereEncrypt(textBox2.Text);
+                }
 
                 //save file dialog
                 if (saveAviDialog.ShowDialog() == DialogResult.OK)
                 {
                     //susdulukriptio.video instatiation
                     Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
-                    
-                    if(lsbMode.Text.Equals("1 LSB"))
-                    {
-                        video.modeLSB = 1;
-                    }
-                    else
-                    {
-                        video.modeLSB = 2;
-                    }
-
-                    if(VigenereMode.Text.Equals("Use Vigenere"))
-                    {
-                        //call message encryption method
-                    }
-
                     video.hide(m.compose());
                 }
             }
             else
             {
                 MessageBox.Show("Lengkapi data & uji payload terlebih dahulu", "Warning", MessageBoxButtons.OK);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
+            Message m = video.extract(openAviDialog.FileName);
+            SaveFileDialog1.FileName = m.filename;
+            // DefaultExt is only used when "All files" is selected from  
+            // the filter box and no extension is specified by the user.
+            SaveFileDialog1.DefaultExt = m.extension;
+
+            // Call ShowDialog and check for a return value of DialogResult.OK, 
+            // which indicates that the file was saved. 
+            DialogResult result = SaveFileDialog1.ShowDialog();
+            Stream fileStream;
+
+            if (result == DialogResult.OK)
+            {
+                // Open the file, copy the contents of memoryStream to fileStream, 
+                // and close fileStream. Set the memoryStream.Position value to 0  
+                // to copy the entire stream. 
+                fileStream = 
+                fileStream.Close();
             }
         }
     }
