@@ -45,6 +45,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textBox2.Location = new System.Drawing.Point(93, 26);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(286, 20);
@@ -75,18 +76,26 @@
             // lsbMode
             // 
             this.lsbMode.FormattingEnabled = true;
+            this.lsbMode.Items.AddRange(new object[] {
+            "1 LSB",
+            "2 LSB"});
             this.lsbMode.Location = new System.Drawing.Point(12, 66);
             this.lsbMode.Name = "lsbMode";
             this.lsbMode.Size = new System.Drawing.Size(121, 21);
             this.lsbMode.TabIndex = 7;
+            this.lsbMode.Text = "1 LSB";
             // 
             // VigenereMode
             // 
             this.VigenereMode.FormattingEnabled = true;
+            this.VigenereMode.Items.AddRange(new object[] {
+            "Use Vigenere",
+            "Without Vigenere"});
             this.VigenereMode.Location = new System.Drawing.Point(139, 66);
             this.VigenereMode.Name = "VigenereMode";
             this.VigenereMode.Size = new System.Drawing.Size(121, 21);
             this.VigenereMode.TabIndex = 8;
+            this.VigenereMode.Text = "Without Vigenere";
             // 
             // button3
             // 
