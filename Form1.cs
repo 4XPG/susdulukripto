@@ -116,7 +116,7 @@ namespace susdulukripto
                 String fname = openMessageDialog.SafeFileName;
                 String[] fstr = fname.Split('.');
                 Message m = new Message(fstr[0], fstr[1], System.IO.File.ReadAllBytes(openMessageDialog.FileName));
-                if (VigenereMode.Items.Equals("Use Vigenere"))
+                if (VigenereMode.Text == "Use Vigenere")
                 {
                     m.VigenereEncrypt(textBox2.Text);
                 }
@@ -126,7 +126,7 @@ namespace susdulukripto
                 {
                     //susdulukriptio.video instatiation
                     Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
-                    video.hide(m.compose());
+                    video.hide(m.compose(), lsbMode.Text == "1 LSB");
                 }
             }
             else
@@ -138,24 +138,32 @@ namespace susdulukripto
         private void button8_Click(object sender, EventArgs e)
         {
             Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
-            Message m = video.extract(openAviDialog.FileName);
+            Message m = video.extract(openAviDialog.FileName, lsbMode.Text=="1 LSB");
+            if (VigenereMode.Text == "Use Vigenere")
+            {
+                m.VigenereDecrypt(textBox2.Text);
+            }
+
             SaveFileDialog1.FileName = m.filename;
-            // DefaultExt is only used when "All files" is selected from  
-            // the filter box and no extension is specified by the user.
             SaveFileDialog1.DefaultExt = m.extension;
 
-            // Call ShowDialog and check for a return value of DialogResult.OK, 
-            // which indicates that the file was saved. 
             DialogResult result = SaveFileDialog1.ShowDialog();
-            Stream fileStream;
 
             if (result == DialogResult.OK)
             {
-                // Open the file, copy the contents of memoryStream to fileStream, 
-                // and close fileStream. Set the memoryStream.Position value to 0  
-                // to copy the entire stream. 
-                fileStream = 
-                fileStream.Close();
+                File.WriteAllBytes(SaveFileDialog1.FileName, m.content);
+            }
+        }
+
+        private void PSNR_Click(object sender, EventArgs e)
+        {
+            PSNRlabel.Text = "Processing PSNR";
+            if (openMessageDialog.ShowDialog() == DialogResult.OK)
+            {
+                String fname = openMessageDialog.FileName;
+                Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
+                Video video2 = new Video(fname, saveAviDialog.FileName, textBox2.Text);
+                PSNRlabel.Text = "PSNR = "+ (Math.Round(video.compPSNR(video2)*100)/100).ToString();
             }
         }
     }

@@ -43,6 +43,8 @@
             this.openAviDialog = new System.Windows.Forms.OpenFileDialog();
             this.openMessageDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveAviDialog = new System.Windows.Forms.SaveFileDialog();
+            this.PSNR = new System.Windows.Forms.Button();
+            this.PSNRlabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox2
@@ -77,7 +79,8 @@
             // 
             // lsbMode
             // 
-            this.lsbMode.FormattingEnabled = true;
+            this.lsbMode.DisplayMember = "1 LSB";
+            this.lsbMode.ForeColor = System.Drawing.SystemColors.WindowText;
             this.lsbMode.Items.AddRange(new object[] {
             "1 LSB",
             "2 LSB"});
@@ -150,7 +153,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(338, 324);
+            this.button7.Location = new System.Drawing.Point(338, 299);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 14;
@@ -160,28 +163,48 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(338, 353);
+            this.button8.Location = new System.Drawing.Point(338, 328);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 15;
             this.button8.Text = "Extract";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // openAviDialog
             // 
             this.openAviDialog.FileName = "defaultFileName";
-            this.openAviDialog.Filter = "AVI files|*.avi";
             this.openAviDialog.Title = "Load AVI";
             // 
             // openMessageDialog
             // 
             this.openMessageDialog.FileName = "openFileDialog1";
             // 
+            // PSNR
+            // 
+            this.PSNR.Location = new System.Drawing.Point(338, 357);
+            this.PSNR.Name = "PSNR";
+            this.PSNR.Size = new System.Drawing.Size(75, 23);
+            this.PSNR.TabIndex = 16;
+            this.PSNR.Text = "PSNR";
+            this.PSNR.UseVisualStyleBackColor = true;
+            this.PSNR.Click += new System.EventHandler(this.PSNR_Click);
+            // 
+            // PSNRlabel
+            // 
+            this.PSNRlabel.AutoSize = true;
+            this.PSNRlabel.Location = new System.Drawing.Point(297, 391);
+            this.PSNRlabel.Name = "PSNRlabel";
+            this.PSNRlabel.Size = new System.Drawing.Size(0, 13);
+            this.PSNRlabel.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 417);
+            this.Controls.Add(this.PSNRlabel);
+            this.Controls.Add(this.PSNR);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button5);
@@ -219,6 +242,8 @@
         private System.Windows.Forms.OpenFileDialog openAviDialog;
         private System.Windows.Forms.OpenFileDialog openMessageDialog;
         private System.Windows.Forms.SaveFileDialog saveAviDialog;
+        private System.Windows.Forms.Button PSNR;
+        private System.Windows.Forms.Label PSNRlabel;
     }
 }
 
