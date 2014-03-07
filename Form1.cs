@@ -79,9 +79,9 @@ namespace susdulukripto
             {
                 int width = panel1.Width;
                 int height = panel1.Height;
-                /*video = new Microsoft.DirectX.AudioVideoPlayback.Video(openAviDialog.FileName);
+                video = new Microsoft.DirectX.AudioVideoPlayback.Video(openAviDialog.FileName);
                 video.Owner = panel1;
-                video.Stop();*/
+                video.Stop();
 
                 panel1.Size = new Size(width,height);
             }
