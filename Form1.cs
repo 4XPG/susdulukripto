@@ -120,6 +120,21 @@ namespace susdulukripto
                 {
                     //susdulukriptio.video instatiation
                     Video video = new Video(openAviDialog.FileName, saveAviDialog.FileName, textBox2.Text);
+                    
+                    if(lsbMode.Text.Equals("1 LSB"))
+                    {
+                        video.modeLSB = 1;
+                    }
+                    else
+                    {
+                        video.modeLSB = 2;
+                    }
+
+                    if(VigenereMode.Text.Equals("Use Vigenere"))
+                    {
+                        //call message encryption method
+                    }
+
                     video.hide(m.compose());
                 }
             }

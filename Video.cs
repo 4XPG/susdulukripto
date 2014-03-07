@@ -21,7 +21,7 @@ namespace susdulukripto
 
         public AVIReader reader { get; set; }
         public AVIWriter writer { get; set; }
-        public String modeLSB { get; set; }
+        public int modeLSB { get; set; }
         public List<Bitmap> bitmapL { get; set; }
 
         //Hide Constructor
@@ -71,15 +71,48 @@ namespace susdulukripto
 
                 //asumsi mode 1-LSB
                 byte byteb = c.B;
-                if(bitarray.Get(i))
+                if(modeLSB == 1)
                 {
-                    byteb = (byte)((byteb & MED) | (HEX_1));
+                    if (bitarray.Get(i))
+                    {
+                        byteb = (byte)((byteb & MED) | (HEX_1));
+                    }
+                    else
+                    {
+                        byteb = (byte)((byteb & MED) | (HEX_0));
+                    }
+                    frame.SetPixel(x, y, Color.FromArgb(c.R, c.G, byteb));
                 }
                 else
                 {
-                    byteb = (byte)((byteb & MED) | (HEX_0));
+                    byte byteg = c.G;
+
+                    //bitarray index to get
+                    int basis = bitarray.Length - i;
+
+                    //change blue byte
+                    if (bitarray.Get(bitarray.Length - ((basis*2) - 1)))
+                    {
+                        byteb = (byte)((byteb & MED) | (HEX_1));
+                    }
+                    else
+                    {
+                        byteb = (byte)((byteb & MED) | (HEX_0));
+                    }
+                    //change green byte
+                    if (bitarray.Get(bitarray.Length - (basis*2)))
+                    {
+                        byteg = (byte)((byteg & MED) | (HEX_1));
+                    }
+                    else
+                    {
+                        byteg = (byte)((byteg & MED) | (HEX_0));
+                    }
+                    frame.SetPixel(x, y, Color.FromArgb(c.R, byteg, byteb));
+
+                    //asumsi panjang bitarray pasti genap
+                    if (i == (bitarray.Length / 2)) break;
                 }
-                frame.SetPixel(x, y, Color.FromArgb(c.R,c.G,byteb));
             }
 
             //write new .avi file
