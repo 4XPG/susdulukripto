@@ -177,7 +177,7 @@ namespace susdulukripto
                         sb = s.Split('.');
                         m.filename = sb[1];
                         m.extension = sb[2];
-                        messageLength = Convert.ToInt32(sb[0]);
+                        messageLength = Convert.ToInt32(sb[0]) + 1;
                         headLength = i/8 + 1;
                         contentLength = messageLength - headLength;
                         boolarray = new bool[messageLength*8];

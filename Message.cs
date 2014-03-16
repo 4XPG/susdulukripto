@@ -61,10 +61,12 @@ namespace susdulukripto
             int j = 0;
             for (int i = 0; i < s.Length; i++)
             {
-                s[i] = (char)((s[i] + key[j]) % 127);
-                if (key.Length == j) j = 0; else j++;
+                s[i] = (char)((s[i] + key[j]) % 128);
+                if (key.Length == j+1) j = 0; else j++;
             }
             this.content = Encoding.ASCII.GetBytes(s.ToString());
+
+            Console.WriteLine(s.ToString());
         }
 
         public void VigenereDecrypt(string key)
@@ -74,8 +76,8 @@ namespace susdulukripto
             int j = 0;
             for (int i = 0; i < s.Length; i++)
             {
-                s[i] = (char)((s[i] - key[j] + 127) % 127);
-                if (key.Length == j) j = 0; else j++;
+                s[i] = (char)((s[i] - key[j] + 128) % 128);
+                if (key.Length == j+1) j = 0; else j++;
             }
             this.content = Encoding.ASCII.GetBytes(s.ToString());
         }
